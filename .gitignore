@@ -1,0 +1,8 @@
+#dir
+gradle
+build
+
+#file
+*.text
+gradlew
+gradlew.bat
