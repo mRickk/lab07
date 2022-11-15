@@ -21,31 +21,30 @@ public final class MonthSorterNested implements MonthSorter {
         November("November", 30),
         Dicember("Dicember", 31);
 
-        private String monthName;
-        private int days;
+        public String name;
+        public int days;
 
         private Month(String name, int days) {
-            this.monthName = name;
+            this.name = name;
             this.days = days;
         }
 
 
         public static Month fromString(String search) {
             int temp;
-            int min = Integer.MAX_VALUE;
-            Month result = Month.January;
-            for (Month month : Month.values()) {
-                if ((temp = month.monthName.compareTo(search)) < min) {
-                    min = temp;
-                    result = month;
-                } else if (temp == min) {
+            int nearestToZero = Integer.MIN_VALUE;
+            Month result = null;
+            for (Month m : Month.values()) {
+                if ((temp = search.compareTo(m.name)) < 0 && search.length() < m.name.length() 
+                    && temp > nearestToZero) {
+                    nearestToZero = temp;
+                    result = m;
+                } else if (temp == nearestToZero) {
                     throw new IllegalArgumentException("Input string found 2 or more similar months");
-                } else {
-                    throw new IllegalArgumentException("Input string is not valid");
                 }
             }
-            if (search.length() >= result.monthName.length() &&
-                !search.equalsIgnoreCase(result.monthName)) {
+            if (search.length() >= result.name.length() && 
+                !search.equalsIgnoreCase(result.name)) {
                     throw new IllegalArgumentException("Input string is not valid");
                 }
             return result;
@@ -67,7 +66,7 @@ public final class MonthSorterNested implements MonthSorter {
         return new Comparator<String>() {
             @Override
             public int compare(String arg0, String arg1) {
-                return Month.fromString(arg0).monthName.compareTo(Month.fromString(arg1).monthName);
+                return Month.fromString(arg0).name.compareTo(Month.fromString(arg1).name);
             }            
         };
     }
