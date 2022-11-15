@@ -1,8 +1,6 @@
 package it.unibo.nestedenum;
 
 import java.util.Comparator;
-import java.util.Locale;
-import java.util.Objects;
 
 /**
  * Implementation of {@link MonthSorter}.
@@ -31,20 +29,46 @@ public final class MonthSorterNested implements MonthSorter {
             this.days = days;
         }
 
-        public Month fromString(String search) {
-            
-        }
-    }
 
-    
+        public static Month fromString(String search) {
+            int temp;
+            int min = Integer.MAX_VALUE;
+            Month result = Month.January;
+            for (Month month : Month.values()) {
+                if ((temp = month.monthName.compareTo(search)) < min) {
+                    min = temp;
+                    result = month;
+                } else if (temp == min) {
+                    throw new IllegalArgumentException("Input string found 2 or more similar months");
+                } else {
+                    throw new IllegalArgumentException("Input string is not valid");
+                }
+            }
+            if (search.length() >= result.monthName.length() &&
+                !search.equalsIgnoreCase(result.monthName)) {
+                    throw new IllegalArgumentException("Input string is not valid");
+                }
+            return result;
+        }
+    }    
 
     @Override
     public Comparator<String> sortByDays() {
-        return null;
+        return new Comparator<String>() {
+            @Override
+            public int compare(String arg0, String arg1) {
+                return Integer.compare(Month.fromString(arg0).days, Month.fromString(arg1).days);
+            }            
+        };
     }
 
     @Override
     public Comparator<String> sortByOrder() {
-        return null;
+        return new Comparator<String>() {
+            @Override
+            public int compare(String arg0, String arg1) {
+                return Month.fromString(arg0).monthName.compareTo(Month.fromString(arg1).monthName);
+            }            
+        };
     }
 }
