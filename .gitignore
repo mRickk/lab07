@@ -1,6 +1,8 @@
 #dir
 gradle
 build
+.gradle
+bin
 
 #file
 *.text
