@@ -1,8 +1,11 @@
 package it.unibo.mvc;
 
 import it.unibo.mvc.api.DrawNumberController;
-import it.unibo.mvc.controller.DrawNumberControllerImpl;
+//import it.unibo.mvc.api.DrawNumberView;
+import it.unibo.mvc.controller.DrawNumberCollectionController;
+//import it.unibo.mvc.controller.DrawNumberControllerImpl;
 import it.unibo.mvc.model.DrawNumberImpl;
+import it.unibo.mvc.view.DrawNumberOutView;
 import it.unibo.mvc.view.DrawNumberSwingView;
 
 /**
@@ -25,7 +28,9 @@ public final class LaunchApp {
      */
     public static void main(final String... args) {
         final var model = new DrawNumberImpl();
-        final DrawNumberController app = new DrawNumberControllerImpl(model);
+        final DrawNumberController app = new DrawNumberCollectionController(model);
         app.addView(new DrawNumberSwingView());
+        app.addView(new DrawNumberSwingView());
+        app.addView(new DrawNumberOutView());
     }
 }
