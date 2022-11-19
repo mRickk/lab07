@@ -4,6 +4,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -31,9 +33,12 @@ public class MiniGUI {
         final JPanel canvas = new JPanel();
         final JPanel c2 = new JPanel();
         canvas.setLayout(new BorderLayout());
-        c2.setLayout(new BoxLayout(c2, PROPORTION));
+        c2.setLayout(new BoxLayout(c2, BoxLayout.X_AXIS));
+        canvas.add(c2, BorderLayout.CENTER);
+        final JTextField field = new JTextField();
         final JButton write = new JButton("Print a random number on standard output");
-        canvas.add(write, BorderLayout.CENTER);
+        c2.add(write, BoxLayout.X_AXIS);
+        canvas.add(field, BorderLayout.NORTH);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
@@ -42,7 +47,9 @@ public class MiniGUI {
         write.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                System.out.println(randomGenerator.nextInt());
+                int rand = randomGenerator.nextInt();
+                System.out.println(rand);
+                field.setText(String.valueOf(rand));
             }
         });
     }
@@ -70,7 +77,7 @@ public class MiniGUI {
         /*
          * Resize the frame to minimum size
          */
-        frame.pack();
+        //frame.pack();
         /*
          * OK, ready to pull the frame onscreen
          */

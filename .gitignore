@@ -5,6 +5,8 @@ build
 bin
 
 #file
+*.jar
+*.class
 *.text
 gradlew
 gradlew.bat
