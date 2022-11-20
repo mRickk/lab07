@@ -1,6 +1,5 @@
 package it.unibo.mvc;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import it.unibo.mvc.api.DrawNumberController;
@@ -36,8 +35,8 @@ public final class LaunchApp {
     public static void main(final String... args) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         final var model = new DrawNumberImpl();
         final DrawNumberController app = new DrawNumberCollectionController(model);
-        final Class cSwing = new DrawNumberSwingView().getClass();
-        final Class cOut = new DrawNumberOutView().getClass();
+        final Class<?> cSwing = new DrawNumberSwingView().getClass();
+        final Class<?> cOut = new DrawNumberOutView().getClass();
         for (int i = 0; i < LaunchApp.NUM; i++) {
             app.addView((DrawNumberView)cSwing.getConstructor().newInstance());
             app.addView((DrawNumberView)cOut.getConstructor().newInstance());
